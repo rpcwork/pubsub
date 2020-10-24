@@ -1,0 +1,10 @@
+{
+    "require": {
+        "clue/redis-react": "^2.4",
+        "clue/block-react": "^1.4",
+        "vlucas/phpdotenv": "^5.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.4"
+    }
+}

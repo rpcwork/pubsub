@@ -1,0 +1,80 @@
+
+*****************************************************
+PUB/SUB WEBSERVER
+*****************************************************
+Webserver spawner using ReactPHP which is a low-level library that provides event driven, non-blocking I/O with PHP
+PHP-fm is synchronous by default. That is not suitable for our use case where async pub/sub message handling is needed. We use ReactPHP which is a low-level library that provides event driven, non-blocking I/O with PHP.
+
+
+
+ *****************************************************
+ * WEB SERVER API INTERFACE
+ *****************************************************
+ * SUBSCRIBE <topic>
+ * PUBLISH <topic> <message>
+ *****************************************************
+
+
+
+
+ *****************************************************
+ * How to Use this web server
+ *****************************************************
+ * 1. START web server (assuming install location /var/www/pubsub/). 
+ *    It will listen on the IP Address and Port configured in .env 
+ *    cd /var/www/pubsub/src; php ws.php
+ *  
+ * 2. SUBSCRIBE clients to different topics from different hosts
+ *    telnet <HOST IP> <PORT>
+ *    SUBSCRIBE 123
+ *    or
+ *    SUBSCRIBE abc
+ * 
+ * 3. PUBLISH to topics clients have subscribed to
+ *    Should only be seen by clients subscribed to abc
+ *    PUBLISH abc hi-abc
+ *    following should only be seen by clients subscribed to 123
+ *    PUBLISH 123 hi-123
+ *****************************************************
+
+
+
+
+ *****************************************************
+ * HOW TO RUN THE FUNCTIONAL TESTS
+  *****************************************************
+ *  1. Start Server:    cd /var/www/pubsub/src;php ws.php;
+ *  2. Run Tests:       cd /var/www/pubsub/;./vendor/bin/phpunit tests;
+ *****************************************************
+
+
+
+
+ *****************************************************
+* ASSUMPTIONS
+ *****************************************************
+1. Connection timeout: no limit
+2. For this exercise, since we are not expected to bother _holding_ messages If there's no subscribers for a topic, we can just use PHP memory. But for a full-fledged production application, we should mostly go with RabbitMQ or Apache Kafka.
+3. Install path on server: /var/www/pubsub
+4. Developed & Tested on Ubuntu Server 20.04 LTS focal 
+ *****************************************************
+
+
+
+
+ *****************************************************
+* WHAT MORE CAN BE DONE
+ *****************************************************
+1. A lot more can be done here to improve the error handling, handling different types of exceptions possible scenarios e.g. resulting from the malformed data that comes in.
+2. Web server can be configured to run on supervisord
+ *****************************************************
+
+
+
+
+ *****************************************************
+* Author: @rchaube
+* Credit: React-PHP Team, Sergey Zuc, Telnet class creators and modifiers
+* Created: 2020-10-23
+* Last modified: 2020-10-23
+ *****************************************************
